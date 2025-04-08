@@ -1,9 +1,8 @@
 #ifndef GRAPHICS_WINDOW_WINDOWS_WINDOW_HEADER
 #define GRAPHICS_WINDOW_WINDOWS_WINDOW_HEADER
 
-#include "../Window.hpp"
+#include "Window.hpp"
 #include <string>
-#include <string_view>
 
 #include <windows.h>
 
@@ -24,13 +23,12 @@ public:
 	virtual WindowExtent GetDimensions() const override;
 	virtual void GetDimensions(int* w, int* h) const override;
 
-	virtual VkSurfaceKHR CreateVulkanSurface(VkInstance instance) override;
+	virtual void* CreateRenderSurface(void* instance) override;
 
 	virtual uint64_t GetWindowID() override;
 
 
-	virtual void InitImguiForVulkan() override;
-
+	virtual void InitImguiForRenderer() override;
 
 	// Inherited via IWindow
 	void ShutdownImGuiWindow() override;
@@ -40,6 +38,10 @@ public:
 
 	// Inherited via IWindow
 	void BeginImGuiFrame() override;
+
+	
+	void Maximize(bool maximize) override;
+
 private:
 	NativeType m_window;
 	HINSTANCE m_instance;

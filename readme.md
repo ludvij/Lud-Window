@@ -3,8 +3,9 @@ A window adpater/middleman made to interface with external libraries
 
 ## Current implementations
  - SDL2: up to date
- - SDL3: not up to date
- - Win32: not up to date
+ - SDL3: up to date
+ - Win32: up to date
 
 ## Requirements
-As of right now it requires ImGui to work, i want to remove this dependency in the future
+Per the original design, these are made to work exclussively with imgui and vulkan, ideally i'd like to remove that
+dependency and let the application or the renderer handle that, but rn I'm in no rush.

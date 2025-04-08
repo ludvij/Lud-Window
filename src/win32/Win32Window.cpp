@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <string>
 #include <windows.h>
+#include "Win32Window.hpp"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -151,13 +152,13 @@ void Win32Window::GetDimensions(int* w, int* h) const
 }
 
 
-VkSurfaceKHR Win32Window::CreateVulkanSurface(VkInstance instance)
+void* Win32Window::CreateRenderSurface(void* instance)
 {
 	VkSurfaceKHR surface;
 	VkWin32SurfaceCreateInfoKHR info = { VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR, NULL };
 	info.hinstance = m_instance;
 	info.hwnd = m_window;
-	vkCreateWin32SurfaceKHR(instance, &info, nullptr, &surface);
+	vkCreateWin32SurfaceKHR(static_cast<void*>(instance), &info, nullptr, &surface);
 	return surface;
 }
 
@@ -177,7 +178,7 @@ static int create_vk_surface(ImGuiViewport* viewport, ImU64 vk_instance, const v
 
 	return (int)err;
 }
-void Win32Window::InitImguiForVulkan()
+void Win32Window::InitImguiForRenderer()
 {
 	//ImGui_ImplWin32_InitForVulkan(m_window);
 	ImGui_ImplWin32_Init(m_window);
@@ -205,5 +206,15 @@ void Win32Window::BeginImGuiFrame()
 	ImGui_ImplWin32_NewFrame();
 }
 
-
+void Win32Window::Maximize(bool maximize)
+{
+	if (maximize)
+	{
+		ShowWindow(m_window, SW_SHOWMAXIMIZED);
+	}
+	else
+	{
+		// do nothing yet
+	}
+}
 }

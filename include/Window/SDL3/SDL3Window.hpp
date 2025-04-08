@@ -1,8 +1,8 @@
 #ifndef GRAPHICS_WINDOW_SDL_WINDOW_HEADER
 #define GRAPHICS_WINDOW_SDL_WINDOW_HEADER
 
-#include "../Window.hpp"
-#include <string_view>
+#include "Window.hpp"
+#include <string>
 
 struct SDL_Window;
 namespace Window
@@ -17,7 +17,7 @@ public:
 	virtual WindowExtent GetDimensions() const override;
 	virtual void GetDimensions(int* w, int* h) const override;
 
-	virtual VkSurfaceKHR CreateVulkanSurface(VkInstance instance) override;
+	virtual void* CreateRenderSurface(void* instance) override;
 
 	virtual uint32_t GetWindowID() override;
 
